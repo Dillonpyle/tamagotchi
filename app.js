@@ -6,8 +6,15 @@ var pet = {
     age: 0
 }
 
-const startGame = () => {
 
+
+
+const startGame = () => {
+    addButtons();
+    hungerCounter();
+    sleepinessCounter();
+    boredomCounter();
+    ageCounter();
 }
 
 const addButtons = () => {
@@ -29,14 +36,68 @@ const addButtons = () => {
     $('#age').remove();
 }
 
-const lifeCounter = () => {
+const hungerCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
         if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10) {
             pet.hunger++
+            scales();
+        } else {
+            console.log('clearing hunger interval')
+            clearInterval(intervalId);
+        }
+    };
+
+    $(document).ready(function () {
+        intervalId = setInterval(varName, 2000);
+    });
+}
+
+const sleepinessCounter = () => {
+    console.log('counters on');
+    let intervalId = null
+    let varName = function () {
+        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10) {
             pet.sleepiness++
+            scales();
+        } else {
+            console.log('clearing sleepiness interval')
+            clearInterval(intervalId);
+        }
+    };
+
+    $(document).ready(function () {
+        intervalId = setInterval(varName, 2000);
+    });
+}
+
+const boredomCounter = () => {
+    console.log('counters on');
+    let intervalId = null
+    let varName = function () {
+        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10) {
             pet.boredom++
+            scales();
+        } else {
+            console.log('clearing boredom interval')
+            clearInterval(intervalId);
+        }
+    };
+
+    $(document).ready(function () {
+        intervalId = setInterval(varName, 2000);
+    });
+}
+
+
+
+const ageCounter = () => {
+    console.log('aging');
+    let intervalId = null
+    let varName = function () {
+        if (pet.age < 1000) {
+            pet.age++
         } else {
             console.log('clearing life interval')
             clearInterval(intervalId);
@@ -48,21 +109,11 @@ const lifeCounter = () => {
     });
 }
 
-const ageCounter = () => {
-    console.log('aging');
-    let intervalId = null
-    let varName = function () {
-        if (pet.age < 100) {
-            pet.age++
-        } else {
-            console.log('clearing life interval')
-            clearInterval(intervalId);
-        }
-    };
-
-    $(document).ready(function () {
-        intervalId = setInterval(varName, 2000);
-    });
+const scales = () => {
+    $(".hungerScale").text(`pets hunger level is :${pet.hunger}`);
+    $(".sleepinessScale").text(`pets tiredness level is :${pet.sleepiness}`);
+    $(".boredomScale").text(`pets boredom level is :${pet.boredom}`);
+    $(".ageScale").text(`pets age  is :${pet.age}`);
 }
 
 const subtractHunger = () => {
@@ -85,6 +136,11 @@ const subtractBoredom = () => {
         pet.boredom--
     }
 }
+
+$(document).on('click', '#startGame', function () {
+    console.log('clicked');
+    startGame();
+});
 
 $(document).on('click', '#hunger', function () {
     console.log('clicked');
