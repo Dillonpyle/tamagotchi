@@ -1,8 +1,10 @@
 console.log('is working');
 var pet = {
+    playerName: "",
     hunger: 0,
     sleepiness: 0,
     boredom: 0,
+    bladder: 0,
     age: 0
 }
 
@@ -10,14 +12,17 @@ var pet = {
 
 //starts the game
 const startGame = () => {
+    userName();
     addButtons();
     hungerCounter();
     sleepinessCounter();
     boredomCounter();
+    bladderCounter();
     ageCounter();
     hungerProgressBar();
-    sleepinessProgressBar()
-    boredomProgressBar()
+    sleepinessProgressBar();
+    boredomProgressBar();
+    bladderProgressBar();
 }
 //graphics
 
@@ -27,7 +32,7 @@ const hungerProgressBar = () => {
         $("#hungerBar")
             .css("width", pet.hunger * 10 + "%")
             .attr("aria-valuenow", pet.hunger * 10)
-            .text(pet.hunger * 10 + "% Complete");
+            .text(pet.hunger + " out of 10 hunger level");
         if (pet.hunger >= 10)
             clearInterval(interval);
     }, 500);
@@ -39,7 +44,7 @@ const sleepinessProgressBar = () => {
         $("#sleepinessBar")
             .css("width", pet.sleepiness * 10 + "%")
             .attr("aria-valuenow", pet.sleepiness * 10)
-            .text(pet.sleepiness * 10 + "% Complete");
+            .text(pet.sleepiness + " out of 10 sleepiness level");
         if (pet.sleepiness >= 10)
             clearInterval(interval);
     }, 500);
@@ -51,8 +56,20 @@ const boredomProgressBar = () => {
         $("#boredomBar")
             .css("width", pet.boredom * 10 + "%")
             .attr("aria-valuenow", pet.boredom * 10)
-            .text(pet.boredom * 10 + "% Complete");
+            .text(pet.boredom + " out of 10 boredom level");
         if (pet.boredom >= 10)
+            clearInterval(interval);
+    }, 500);
+};
+
+//bladder progress bar
+const bladderProgressBar = () => {
+    let interval = setInterval(function () {
+        $("#bladderBar")
+            .css("width", pet.bladder * 10 + "%")
+            .attr("aria-valuenow", pet.bladder * 10)
+            .text(pet.bladder + " out of 10 bladder level");
+        if (pet.bladder >= 10)
             clearInterval(interval);
     }, 500);
 };
@@ -75,19 +92,25 @@ const addButtons = () => {
         $('#buttons').append($button);
     });
     $('#age').remove();
+    $('#playerName').remove();
 }
 
 //adds scale for pet life reference
 const scales = () => {
+    $(".playerName").text(`${pet.playerName} is responsible for this virtual pet`);
     $(".hungerScale").text(`pets hunger level is :${pet.hunger}`);
     $(".sleepinessScale").text(`pets tiredness level is :${pet.sleepiness}`);
     $(".boredomScale").text(`pets boredom level is :${pet.boredom}`);
     $(".ageScale").text(`pets age  is :${pet.age}`);
 }
 
+const userName = () => {
+    pet.playerName = prompt("What is your name?");
+}
+
 //adds death sequence
 const death = () => {
-    alert('your pet has died. you monster!')
+    alert(`your pet has died. You're a monster ${pet.playerName}!`)
 }
 
 //starts hungercounter
@@ -95,7 +118,7 @@ const hungerCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
-        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10) {
+        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
             pet.hunger++
             scales();
         } else {
@@ -114,12 +137,11 @@ const sleepinessCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
-        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10) {
+        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
             pet.sleepiness++
             scales();
         } else {
             console.log('clearing sleepiness interval')
-            death();
             clearInterval(intervalId);
         }
     };
@@ -133,12 +155,29 @@ const boredomCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
-        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10) {
+        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
             pet.boredom++
             scales();
         } else {
             console.log('clearing boredom interval');
-            death();
+            clearInterval(intervalId);
+        }
+    };
+
+    $(document).ready(function () {
+        intervalId = setInterval(varName, 2000);
+    });
+}
+
+const bladderCounter = () => {
+    console.log('counters on');
+    let intervalId = null
+    let varName = function () {
+        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
+            pet.bladder++
+            scales();
+        } else {
+            console.log('clearing bladder interval');
             clearInterval(intervalId);
         }
     };
@@ -186,6 +225,13 @@ const subtractBoredom = () => {
     }
 }
 
+const subtractBladder = () => {
+    console.log('taking pet out');
+    if (pet.bladder > 0) {
+        pet.bladder--
+    }
+}
+
 $(document).on('click', '#startGame', function () {
     console.log('clicked');
     startGame();
@@ -204,4 +250,9 @@ $(document).on('click', '#sleepiness', function () {
 $(document).on('click', '#boredom', function () {
     console.log('clicked');
     subtractBoredom();
+});
+
+$(document).on('click', '#bladder', function () {
+    console.log('clicked');
+    subtractBladder();
 });
