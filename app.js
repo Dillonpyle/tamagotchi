@@ -27,6 +27,30 @@ const startGame = () => {
 }
 //graphics
 
+//move koromon on screen
+const koromon = () => {
+    console.log('ran koromon');
+    $('.koromonImg').animate({
+        'marginLeft': "+=550px" //moves right
+    });
+}
+
+//move augomon on screen
+const agumon = () => {}
+
+// the animation and sound 
+const digivole = () => {
+    if (pet.age === 2) {
+        $('.koromonImg').hide();
+        let audio = document.getElementsByTagName("audio")[0];
+        audio.play();
+        $("#canvas").prepend('<img id="digivole1" src="sprites/ezgif.com-gif-maker.gif" />');
+    } else {
+        $('img#digivolve1').hide();
+    }
+}
+
+//removing start button
 const hideStart = () => {
     $('#startGame').hide();
 }
@@ -254,6 +278,7 @@ const ageCounter = () => {
     let varName = function () {
         if (pet.age < 1000) {
             pet.age++
+            digivole();
         } else {
             console.log('clearing life interval')
             clearInterval(intervalId);
@@ -261,7 +286,7 @@ const ageCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 10000);
+        intervalId = setInterval(varName, 7000);
     });
 }
 
