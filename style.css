@@ -2,3 +2,10 @@
     margin: 10px;
     width: 700px;
 }
+
+#canvas {
+    background: url("sprites/daytimeLandscape_files/tree-landscape-vector-13951878.jpg");
+    background-size: cover;
+    width: 1200px;
+    height: 600px;
+}

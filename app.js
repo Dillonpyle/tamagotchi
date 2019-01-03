@@ -12,6 +12,7 @@ var pet = {
 
 //starts the game
 const startGame = () => {
+    hideStart();
     userName();
     addButtons();
     hungerCounter();
@@ -26,6 +27,10 @@ const startGame = () => {
 }
 //graphics
 
+const hideStart = () => {
+    $('#startGame').hide();
+}
+
 //hunger progress bar
 const hungerProgressBar = () => {
     let interval = setInterval(function () {
@@ -36,6 +41,58 @@ const hungerProgressBar = () => {
         if (pet.hunger >= 10)
             clearInterval(interval);
     }, 500);
+};
+
+//changes progress bar color fo hunger bar
+const changeHungerProgressBar = () => {
+    if (pet.hunger <= 3) {
+        $('#hungerBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+
+    } else if (pet.hunger >= 4 && pet.hunger <= 7) {
+        $('#hungerBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
+
+    } else if (pet.hunger > 7) {
+        $('#hungerBar').removeClass('bg-warning').addClass('bg-danger');
+    }
+};
+
+//changes progress bar color for sleepiness bar
+const changeSleepinessProgressBar = () => {
+    if (pet.sleepiness <= 3) {
+        $('#sleepinessBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+
+    } else if (pet.sleepiness >= 4 && pet.sleepiness <= 7) {
+        $('#sleepinessBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
+
+    } else if (pet.sleepiness > 7) {
+        $('#sleepinessBar').removeClass('bg-warning').addClass('bg-danger');
+    }
+};
+
+//changes progress bar color for boredom bar
+const changeBoredomProgressBar = () => {
+    if (pet.boredom <= 3) {
+        $('#boredomBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+
+    } else if (pet.boredom >= 4 && pet.boredom <= 7) {
+        $('#boredomBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
+
+    } else if (pet.boredom > 7) {
+        $('#boredomBar').removeClass('bg-warning').addClass('bg-danger');
+    }
+};
+
+//changes progress bar color for boredom bar
+const changeBladderProgressBar = () => {
+    if (pet.bladder <= 3) {
+        $('#bladderBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+
+    } else if (pet.bladder >= 4 && pet.bladder <= 7) {
+        $('#bladderBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
+
+    } else if (pet.bladder > 7) {
+        $('#bladderBar').removeClass('bg-warning').addClass('bg-danger');
+    }
 };
 
 //sleepiness progress bar
@@ -98,9 +155,9 @@ const addButtons = () => {
 //adds scale for pet life reference
 const scales = () => {
     $(".playerName").text(`${pet.playerName} is responsible for this virtual pet`);
-    $(".hungerScale").text(`pets hunger level is :${pet.hunger}`);
-    $(".sleepinessScale").text(`pets tiredness level is :${pet.sleepiness}`);
-    $(".boredomScale").text(`pets boredom level is :${pet.boredom}`);
+    //$(".hungerScale").text(`pets hunger level is :${pet.hunger}`);
+    //$(".sleepinessScale").text(`pets tiredness level is :${pet.sleepiness}`);
+    //$(".boredomScale").text(`pets boredom level is :${pet.boredom}`);
     $(".ageScale").text(`pets age  is :${pet.age}`);
 }
 
@@ -121,6 +178,7 @@ const hungerCounter = () => {
         if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
             pet.hunger++
             scales();
+            changeHungerProgressBar();
         } else {
             console.log('clearing hunger interval')
             death();
@@ -139,6 +197,7 @@ const sleepinessCounter = () => {
     let varName = function () {
         if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
             pet.sleepiness++
+            changeSleepinessProgressBar();
             scales();
         } else {
             console.log('clearing sleepiness interval')
@@ -157,6 +216,7 @@ const boredomCounter = () => {
     let varName = function () {
         if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
             pet.boredom++
+            changeBoredomProgressBar();
             scales();
         } else {
             console.log('clearing boredom interval');
@@ -175,6 +235,7 @@ const bladderCounter = () => {
     let varName = function () {
         if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
             pet.bladder++
+            changeBladderProgressBar();
             scales();
         } else {
             console.log('clearing bladder interval');
