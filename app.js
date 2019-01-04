@@ -14,6 +14,7 @@ var pet = {
 const startGame = () => {
     hideStart();
     userName();
+    koromon();
     addButtons();
     hungerCounter();
     sleepinessCounter();
@@ -30,23 +31,37 @@ const startGame = () => {
 //move koromon on screen
 const koromon = () => {
     console.log('ran koromon');
-    $('.koromonImg').animate({
-        'marginLeft': "+=550px" //moves right
-    });
+    $('.koromonImg').css("visibility", "visible");
+    $('.koromonImg').velocity({
+        rotateY: -30,
+        rotateX: -30,
+        "margin-left": "700px",
+    }, {
+        duration: 5000,
+        loop: 10,
+        delay: 20
+    })
+
 }
 
 //move augomon on screen
-const agumon = () => {}
+const agumon = () => {
+    $('.agumonImg').css("visibility", "visible");
+}
 
 // the animation and sound 
 const digivole = () => {
-    if (pet.age === 2) {
+    if (pet.age == 5) {
         $('.koromonImg').hide();
         let audio = document.getElementsByTagName("audio")[0];
         audio.play();
-        $("#canvas").prepend('<img id="digivole1" src="sprites/ezgif.com-gif-maker.gif" />');
+        $("#canvas").prepend('<img id="digivolve1" src="sprites/ezgif.com-gif-maker.gif" />');
     } else {
-        $('img#digivolve1').hide();
+        $('#digivolve1').hide();
+    }
+
+    if (pet.age >= 5) {
+        agumon();
     }
 }
 
@@ -59,62 +74,62 @@ const hideStart = () => {
 const hungerProgressBar = () => {
     let interval = setInterval(function () {
         $("#hungerBar")
-            .css("width", pet.hunger * 10 + "%")
-            .attr("aria-valuenow", pet.hunger * 10)
+            .css("width", pet.hunger + "%")
+            .attr("aria-valuenow", pet.hunger)
             .text(pet.hunger + " out of 10 hunger level");
-        if (pet.hunger >= 10)
+        if (pet.hunger >= 100)
             clearInterval(interval);
     }, 500);
 };
 
 //changes progress bar color fo hunger bar
 const changeHungerProgressBar = () => {
-    if (pet.hunger <= 3) {
-        $('#hungerBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+    if (pet.hunger <= 30) {
+        $('#hungerBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-primary');
 
-    } else if (pet.hunger >= 4 && pet.hunger <= 7) {
+    } else if (pet.hunger >= 40 && pet.hunger <= 70) {
         $('#hungerBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
 
-    } else if (pet.hunger > 7) {
+    } else if (pet.hunger > 70) {
         $('#hungerBar').removeClass('bg-warning').addClass('bg-danger');
     }
 };
 
 //changes progress bar color for sleepiness bar
 const changeSleepinessProgressBar = () => {
-    if (pet.sleepiness <= 3) {
-        $('#sleepinessBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+    if (pet.sleepiness <= 30) {
+        $('#sleepinessBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-primary');
 
-    } else if (pet.sleepiness >= 4 && pet.sleepiness <= 7) {
+    } else if (pet.sleepiness >= 40 && pet.sleepiness <= 70) {
         $('#sleepinessBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
 
-    } else if (pet.sleepiness > 7) {
+    } else if (pet.sleepiness > 70) {
         $('#sleepinessBar').removeClass('bg-warning').addClass('bg-danger');
     }
 };
 
 //changes progress bar color for boredom bar
 const changeBoredomProgressBar = () => {
-    if (pet.boredom <= 3) {
-        $('#boredomBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+    if (pet.boredom <= 30) {
+        $('#boredomBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-primary');
 
-    } else if (pet.boredom >= 4 && pet.boredom <= 7) {
+    } else if (pet.boredom >= 40 && pet.boredom <= 70) {
         $('#boredomBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
 
-    } else if (pet.boredom > 7) {
+    } else if (pet.boredom > 70) {
         $('#boredomBar').removeClass('bg-warning').addClass('bg-danger');
     }
 };
 
 //changes progress bar color for boredom bar
 const changeBladderProgressBar = () => {
-    if (pet.bladder <= 3) {
-        $('#bladderBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-success');
+    if (pet.bladder <= 30) {
+        $('#bladderBar').removeClass('bg-warning').removeClass('bg-danger').addClass('bg-primary');
 
-    } else if (pet.bladder >= 4 && pet.bladder <= 7) {
+    } else if (pet.bladder >= 40 && pet.bladder <= 70) {
         $('#bladderBar').removeClass('bg-success').removeClass('bg-danger').addClass('bg-warning');
 
-    } else if (pet.bladder > 7) {
+    } else if (pet.bladder > 70) {
         $('#bladderBar').removeClass('bg-warning').addClass('bg-danger');
     }
 };
@@ -123,10 +138,10 @@ const changeBladderProgressBar = () => {
 const sleepinessProgressBar = () => {
     let interval = setInterval(function () {
         $("#sleepinessBar")
-            .css("width", pet.sleepiness * 10 + "%")
-            .attr("aria-valuenow", pet.sleepiness * 10)
+            .css("width", pet.sleepiness + "%")
+            .attr("aria-valuenow", pet.sleepiness)
             .text(pet.sleepiness + " out of 10 sleepiness level");
-        if (pet.sleepiness >= 10)
+        if (pet.sleepiness >= 100)
             clearInterval(interval);
     }, 500);
 };
@@ -135,10 +150,10 @@ const sleepinessProgressBar = () => {
 const boredomProgressBar = () => {
     let interval = setInterval(function () {
         $("#boredomBar")
-            .css("width", pet.boredom * 10 + "%")
-            .attr("aria-valuenow", pet.boredom * 10)
+            .css("width", pet.boredom + "%")
+            .attr("aria-valuenow", pet.boredom)
             .text(pet.boredom + " out of 10 boredom level");
-        if (pet.boredom >= 10)
+        if (pet.boredom >= 100)
             clearInterval(interval);
     }, 500);
 };
@@ -147,10 +162,10 @@ const boredomProgressBar = () => {
 const bladderProgressBar = () => {
     let interval = setInterval(function () {
         $("#bladderBar")
-            .css("width", pet.bladder * 10 + "%")
-            .attr("aria-valuenow", pet.bladder * 10)
+            .css("width", pet.bladder + "%")
+            .attr("aria-valuenow", pet.bladder)
             .text(pet.bladder + " out of 10 bladder level");
-        if (pet.bladder >= 10)
+        if (pet.bladder >= 100)
             clearInterval(interval);
     }, 500);
 };
@@ -199,7 +214,7 @@ const hungerCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
-        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
+        if (pet.hunger < 100 && pet.sleepiness < 100 && pet.boredom < 100 && pet.bladder < 100) {
             pet.hunger++
             scales();
             changeHungerProgressBar();
@@ -211,7 +226,7 @@ const hungerCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 2000);
+        intervalId = setInterval(varName, 200);
     });
 }
 
@@ -219,7 +234,7 @@ const sleepinessCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
-        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
+        if (pet.hunger < 100 && pet.sleepiness < 100 && pet.boredom < 100 && pet.bladder < 100) {
             pet.sleepiness++
             changeSleepinessProgressBar();
             scales();
@@ -230,7 +245,7 @@ const sleepinessCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 2000);
+        intervalId = setInterval(varName, 200);
     });
 }
 
@@ -238,7 +253,7 @@ const boredomCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
-        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
+        if (pet.hunger < 100 && pet.sleepiness < 100 && pet.boredom < 100 && pet.bladder < 100) {
             pet.boredom++
             changeBoredomProgressBar();
             scales();
@@ -249,7 +264,7 @@ const boredomCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 2000);
+        intervalId = setInterval(varName, 200);
     });
 }
 
@@ -257,7 +272,7 @@ const bladderCounter = () => {
     console.log('counters on');
     let intervalId = null
     let varName = function () {
-        if (pet.hunger < 10 && pet.sleepiness < 10 && pet.boredom < 10 && pet.bladder < 10) {
+        if (pet.hunger < 100 && pet.sleepiness < 100 && pet.boredom < 100 && pet.bladder < 100) {
             pet.bladder++
             changeBladderProgressBar();
             scales();
@@ -268,7 +283,7 @@ const bladderCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 2000);
+        intervalId = setInterval(varName, 200);
     });
 }
 
@@ -286,35 +301,35 @@ const ageCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 7000);
+        intervalId = setInterval(varName, 3200);
     });
 }
 
 const subtractHunger = () => {
     console.log('feeding pet');
     if (pet.hunger > 0) {
-        pet.hunger--
+        pet.hunger = pet.hunger - 10
     }
 }
 
 const subtractSleepiness = () => {
     console.log('putting pet to sleep');
     if (pet.sleepiness > 0) {
-        pet.sleepiness--
+        pet.sleepiness = pet.sleepiness - 10
     }
 }
 
 const subtractBoredom = () => {
     console.log('playing with pet');
     if (pet.boredom > 0) {
-        pet.boredom--
+        pet.boredom = pet.boredom - 10
     }
 }
 
 const subtractBladder = () => {
     console.log('taking pet out');
     if (pet.bladder > 0) {
-        pet.bladder--
+        pet.bladder = pet.bladder - 10
     }
 }
 

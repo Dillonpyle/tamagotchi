@@ -7,20 +7,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.2/velocity.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.2/velocity.ui.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Sarpanch:400,700" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 
 <body>
     <div Id="startGame"><button type="button">
-            <h1>Start Game</h1>
+            <h3>Start Game</h3>
         </button></div>
 
-    <div id="canvas"><img class='koromonImg' src="sprites/koromonGif.gif" alt=""></div>
+    <div id="canvas"><img id="koromonWobble" class='koromonImg' src="sprites/koromonGif.gif" alt="">
+        <img class='agumonImg' src="sprites/AgumonGif.gif" alt=""></div>
 
     <audio>
-        <source src="koromonToAgumonSound.mp3"> </audio></source>
+        <source src="koromonToAgumonSound.mp3">
+        </source>
     </audio>
 
     <div class="progress">
