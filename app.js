@@ -1,5 +1,5 @@
 console.log('is working');
-var pet = {
+let pet = {
     playerName: "",
     hunger: 0,
     sleepiness: 0,
@@ -7,8 +7,6 @@ var pet = {
     bladder: 0,
     age: 0
 }
-
-
 
 //starts the game
 const startGame = () => {
@@ -76,7 +74,7 @@ const hungerProgressBar = () => {
         $("#hungerBar")
             .css("width", pet.hunger + "%")
             .attr("aria-valuenow", pet.hunger)
-            .text(pet.hunger + " out of 10 hunger level");
+            .text(pet.hunger + " out of 100 hunger level");
         if (pet.hunger >= 100)
             clearInterval(interval);
     }, 500);
@@ -140,7 +138,7 @@ const sleepinessProgressBar = () => {
         $("#sleepinessBar")
             .css("width", pet.sleepiness + "%")
             .attr("aria-valuenow", pet.sleepiness)
-            .text(pet.sleepiness + " out of 10 sleepiness level");
+            .text(pet.sleepiness + " out of 100 sleepiness level");
         if (pet.sleepiness >= 100)
             clearInterval(interval);
     }, 500);
@@ -152,7 +150,7 @@ const boredomProgressBar = () => {
         $("#boredomBar")
             .css("width", pet.boredom + "%")
             .attr("aria-valuenow", pet.boredom)
-            .text(pet.boredom + " out of 10 boredom level");
+            .text(pet.boredom + " out of 100 boredom level");
         if (pet.boredom >= 100)
             clearInterval(interval);
     }, 500);
@@ -164,7 +162,7 @@ const bladderProgressBar = () => {
         $("#bladderBar")
             .css("width", pet.bladder + "%")
             .attr("aria-valuenow", pet.bladder)
-            .text(pet.bladder + " out of 10 bladder level");
+            .text(pet.bladder + " out of 100 bladder level");
         if (pet.bladder >= 100)
             clearInterval(interval);
     }, 500);
@@ -226,7 +224,7 @@ const hungerCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 200);
+        intervalId = setInterval(varName, 500);
     });
 }
 
@@ -245,7 +243,7 @@ const sleepinessCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 200);
+        intervalId = setInterval(varName, 500);
     });
 }
 
@@ -264,7 +262,7 @@ const boredomCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 200);
+        intervalId = setInterval(varName, 500);
     });
 }
 
@@ -283,7 +281,7 @@ const bladderCounter = () => {
     };
 
     $(document).ready(function () {
-        intervalId = setInterval(varName, 200);
+        intervalId = setInterval(varName, 500);
     });
 }
 
@@ -307,28 +305,28 @@ const ageCounter = () => {
 
 const subtractHunger = () => {
     console.log('feeding pet');
-    if (pet.hunger > 0) {
+    if (pet.hunger > 10) {
         pet.hunger = pet.hunger - 10
     }
 }
 
 const subtractSleepiness = () => {
     console.log('putting pet to sleep');
-    if (pet.sleepiness > 0) {
+    if (pet.sleepiness > 10) {
         pet.sleepiness = pet.sleepiness - 10
     }
 }
 
 const subtractBoredom = () => {
     console.log('playing with pet');
-    if (pet.boredom > 0) {
+    if (pet.boredom > 10) {
         pet.boredom = pet.boredom - 10
     }
 }
 
 const subtractBladder = () => {
     console.log('taking pet out');
-    if (pet.bladder > 0) {
+    if (pet.bladder > 10) {
         pet.bladder = pet.bladder - 10
     }
 }
